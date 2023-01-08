@@ -8,10 +8,88 @@
 <body>
   <main>
     <h1>Documentation page</h1>
-    <p>This project is to build a server-side component of a “movies” web application.
-    This will enable users to access information about different
-    movies, directors, and genres. Users will also be able to sign up and update their
-    personal information.</p>
+    <table>
+      <tr>
+        <th>Description</th>
+        <th>endpoint URL</th>
+        <th>method type</th>
+        <th>query parameters</th>
+        <th>format of data expected in the body of the request</th>
+        <th>format of the response data</th>
+      </tr>
+      <tr>
+        <td>Return a list of ALL movies to the user;</td>
+        <td>http://localhost:8080/movies</td>
+        <td>GET</td>
+        <td></td>
+        <td>JSON</td>
+        <td>JSON</td>
+      </tr>
+      <tr>
+        <td>Return data about a single movie by title to the user;</td>
+        <td>http://localhost:8080/movies/:title</td>
+        <td>GET</td>
+        <td></td>
+        <td>JSON</td>
+        <td>JSON</td>
+      </tr>
+      <tr>
+        <td>Return data about a genre by name;</td>
+        <td>http://localhost:8080/movies/:genreName</td>
+        <td>GET</td>
+        <td></td>
+        <td>JSON</td>
+        <td>JSON</td>
+      </tr>
+      <tr>
+        <td>Return data about a director (bio, birth year, death year) by name;</td>
+        <td>http://localhost:8080/directors/:directorName</td>
+        <td>GET</td>
+        <td></td>
+        <td>JSON</td>
+        <td>JSON</td>
+      </tr>
+      <tr>
+        <td>Allow new users to register;</td>
+        <td>http://localhost:8080/users</td>
+        <td>POST</td>
+        <td></td>
+        <td>JSON</td>
+        <td>JSON</td>
+      </tr>
+      <tr>
+        <td>Allow users to update their user info (username);</td>
+        <td>http://localhost:8080/users/:id</td>
+        <td>PUT</td>
+        <td></td>
+        <td>JSON</td>
+        <td>JSON</td>
+      </tr>
+      <tr>
+        <td>Allow users to add a movie to their list of favorites;</td>
+        <td>http://localhost:8080/users/:id/:movieTitle</td>
+        <td>POST</td>
+        <td></td>
+        <td>JSON</td>
+        <td>text</td>
+      </tr>
+      <tr>
+        <td>Allow users to remove a movie from their list of favorites;</td>
+        <td>http://localhost:8080/users/:id/:movieTitle</td>
+        <td>DELETE</td>
+        <td></td>
+        <td>JSON</td>
+        <td>text</td>
+      </tr>
+      <tr>
+        <td>Allow existing users to deregister.</td>
+        <td>http://localhost:8080/users/:id</td>
+        <td>DELETE</td>
+        <td></td>
+        <td>JSON</td>
+        <td>text</td>
+      </tr>
+    </table> 
   </main>
 </body>
 </html>
