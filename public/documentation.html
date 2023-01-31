@@ -35,7 +35,7 @@
       </tr>
       <tr>
         <td>Return data about a genre by name;</td>
-        <td>http://localhost:8080/movies/:genreName</td>
+        <td>http://localhost:8080/genre/:Name</td>
         <td>GET</td>
         <td></td>
         <td>JSON</td>
@@ -43,7 +43,7 @@
       </tr>
       <tr>
         <td>Return data about a director (bio, birth year, death year) by name;</td>
-        <td>http://localhost:8080/directors/:directorName</td>
+        <td>http://localhost:8080//directors/:Name</td>
         <td>GET</td>
         <td></td>
         <td>JSON</td>
@@ -59,7 +59,7 @@
       </tr>
       <tr>
         <td>Allow users to update their user info (username);</td>
-        <td>http://localhost:8080/users/:id</td>
+        <td>http://localhost:8080/users/:Username</td>
         <td>PUT</td>
         <td></td>
         <td>JSON</td>
@@ -67,27 +67,27 @@
       </tr>
       <tr>
         <td>Allow users to add a movie to their list of favorites;</td>
-        <td>http://localhost:8080/users/:id/:movieTitle</td>
+        <td>http://localhost:8080/users/:Username/movies/:MovieID</td>
         <td>POST</td>
         <td></td>
         <td>JSON</td>
-        <td>text</td>
+        <td>JSON</td>
       </tr>
       <tr>
         <td>Allow users to remove a movie from their list of favorites;</td>
-        <td>http://localhost:8080/users/:id/:movieTitle</td>
+        <td>http://localhost:8080/users/:Username/movies/:MovieID</td>
         <td>DELETE</td>
         <td></td>
         <td>JSON</td>
-        <td>text</td>
+        <td>JSON</td>
       </tr>
       <tr>
         <td>Allow existing users to deregister.</td>
-        <td>http://localhost:8080/users/:id</td>
+        <td>http://localhost:8080/users/:Username</td>
         <td>DELETE</td>
         <td></td>
         <td>JSON</td>
-        <td>text</td>
+        <td>HTML</td>
       </tr>
     </table> 
   </main>
