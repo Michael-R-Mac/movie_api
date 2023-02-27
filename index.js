@@ -21,7 +21,7 @@ const Users = Models.User;
 
 mongoose.set('strictQuery', false);
 //mongoose.connect('mongodb://127.0.0.1:27017/cfDB', { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.connect('process.env.CONNECTION_URI', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 const cors = require('cors');
@@ -234,7 +234,6 @@ app.use((err, req, res, next) => {
 });
 
 // listen for requests
+//app.listen(8080, () => {console.log('Your app is listening on port 8080.'); });
 const port = process.env.PORT || 8080;
-app.listen(port, '0.0.0.0',() => {
- console.log('Listening on Port ' + port);
-});
+app.listen(port, '0.0.0.0',() => { console.log('Listening on Port ' + port); });
