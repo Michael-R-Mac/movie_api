@@ -26,7 +26,7 @@ mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnified
 
 const cors = require('cors');
 
-const allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+const allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'http://localhost:1234'];
 
 const { check, validationResult } = require('express-validator');
 
