@@ -32,7 +32,7 @@ const allowedOrigins = [
   "http://localhost:8080",
   "http://testsite.com",
   "http://localhost:1234",
-  "cfmovieclient.netlify.app",
+  "https://cfmovieclient.netlify.app",
 ];
 
 const { check, validationResult } = require("express-validator");
