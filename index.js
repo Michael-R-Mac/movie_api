@@ -48,7 +48,7 @@ app.use(
       }
       return callback(null, true);
     },
-  })
+  }),
 );
 
 const auth = require("./auth")(app);
@@ -56,15 +56,27 @@ const auth = require("./auth")(app);
 const passport = require("passport");
 require("./passport");
 
-// Create: Post requests
-// Add a user
+// --- ENDPOINTS ---
+
+/**
+ * Register a new user.
+ * @name registerUser
+ * @path /users
+ * @method POST
+ * @param {string} req.body.Username - Required, minimum 5 characters
+ * @param {string} req.body.Password - Required
+ * @param {string} req.body.Email - Required, valid email
+ * @param {string} [req.body.Birthday] - Optional
+ * @returns {Object} user - The newly created user object
+ */
+
 app.post(
   "/users",
   [
     check("Username", "Username is required").isLength({ min: 5 }),
     check(
       "Username",
-      "Username contains non alphanumeric characters - not allowed."
+      "Username contains non alphanumeric characters - not allowed.",
     ).isAlphanumeric(),
     check("Password", "Password is required").not().isEmpty(),
     check("Email", "Email does not appear to be valid").isEmail(),
@@ -101,10 +113,20 @@ app.post(
         console.error(error);
         res.status(500).send(`Error: ${error}`);
       });
-  }
+  },
 );
 
-// Add a user favoritemovie
+/**
+ * Allow users to add a movie to their list of favorites.
+ * @name addFavoriteMovie
+ * @path /users/:Username/movies/:MovieID
+ * @method POST
+ * @authentication JWT
+ * @param {string} Username - The user’s username
+ * @param {string} MovieID - The movie’s ID
+ * @returns {JSON} updatedUser - User object with updated favorite movies list.
+ */
+
 app.post(
   "/users/:Username/movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
@@ -120,12 +142,21 @@ app.post(
         } else {
           res.status(200).json(updatedUser);
         }
-      }
+      },
     );
-  }
+  },
 );
 
-// Update: Put requests
+/**
+ * Allow users to update their user info.
+ * @name updateUserInfo
+ * @path /users/:Username
+ * @method PUT
+ * @authentication JWT
+ * @body {JSON} userUpdates - Object containing updated fields (Username, Password, Email, Birthday).
+ * @returns {JSON} updatedUser - The updated user object.
+ */
+
 app.put(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -148,13 +179,20 @@ app.put(
         } else {
           res.json(updatedUser);
         }
-      }
+      },
     );
-  }
+  },
 );
 
-// Delete: Delete requests
-// Delete favoritemovie from username
+/**
+ * Allow users to remove a movie from their list of favorites.
+ * @name removeFavoriteMovie
+ * @path /users/:Username/movies/:MovieID
+ * @method DELETE
+ * @authentication JWT
+ * @returns {JSON} updatedUser - User object with the movie removed from favorites.
+ */
+
 app.delete(
   "/users/:Username/movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
@@ -170,12 +208,20 @@ app.delete(
         } else {
           res.status(200).json(updatedUser);
         }
-      }
+      },
     );
-  }
+  },
 );
 
-// Delete user
+/**
+ * Allow existing users to deregister.
+ * @name deregisterUser
+ * @path /users/:Username
+ * @method DELETE
+ * @authentication JWT
+ * @returns {string} Success message - HTML/Text response.
+ */
+
 app.delete(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -192,11 +238,18 @@ app.delete(
         console.error(err);
         res.status(500).send(`Error: ${err}`);
       });
-  }
+  },
 );
 
-// Read: GET requests
-// Get all users
+/**
+ * Return a list of ALL users to the user.
+ * @name getAllUsers
+ * @path /users
+ * @method GET
+ * @authentication JWT
+ * @returns {JSON} users - Array of all users.
+ */
+
 app.get(
   "/users",
   passport.authenticate("jwt", { session: false }),
@@ -209,10 +262,18 @@ app.get(
         console.error(err);
         res.status(500).send(`Error: ${err}`);
       });
-  }
+  },
 );
 
-// Get all movies
+/**
+ * Return a list of ALL movies to the user.
+ * @name getAllMovies
+ * @path /movies
+ * @method GET
+ * @authentication JWT
+ * @returns {JSON} movies - Array of all movie objects.
+ */
+
 app.get(
   "/movies",
   passport.authenticate("jwt", { session: false }),
@@ -225,10 +286,18 @@ app.get(
         console.error(err);
         res.status(500).send(`Error: ${err}`);
       });
-  }
+  },
 );
 
-// Get a movie by title
+/**
+ * Return data about a single movie by title to the user.
+ * @name getMovieByTitle
+ * @path /movies/:Title
+ * @method GET
+ * @authentication JWT
+ * @returns {JSON} movie - A single movie object.
+ */
+
 app.get(
   "/movies/:Title",
   passport.authenticate("jwt", { session: false }),
@@ -241,10 +310,18 @@ app.get(
         console.error(err);
         res.status(500).send(`Error: ${err}`);
       });
-  }
+  },
 );
 
-// Get a movie by genre
+/**
+ * Return data about a genre by name.
+ * @name getGenreByName
+ * @path /movies/genre/:Name
+ * @method GET
+ * @authentication JWT
+ * @returns {JSON} genreDescription - The description of the requested genre.
+ */
+
 app.get(
   "/movies/genre/:Name",
   passport.authenticate("jwt", { session: false }),
@@ -257,10 +334,18 @@ app.get(
         console.error(err);
         res.status(500).send(`Error: ${err}`);
       });
-  }
+  },
 );
 
-// Get a movie by director
+/**
+ * Return data about a director (bio, birth year, death year) by name.
+ * @name getDirectorByName
+ * @path /directors/:Name
+ * @method GET
+ * @authentication JWT
+ * @returns {JSON} director - Director object containing bio, birth, and death.
+ */
+
 app.get(
   "/directors/:Name",
   passport.authenticate("jwt", { session: false }),
@@ -273,7 +358,7 @@ app.get(
         console.error(err);
         res.status(500).send(`Error: ${err}`);
       });
-  }
+  },
 );
 
 app.use(express.static("public"));
